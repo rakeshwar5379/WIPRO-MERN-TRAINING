@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Salary Calculator</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .container { max-width: 300px; }
+        input { width: 100%; margin-bottom: 10px; padding: 8px; }
+        button { padding: 10px; cursor: pointer; width: 100%; background: #28a745; color: white; border: none; }
+        #result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; display: none; }
+    </style>
+</head>
+<body>
+
+    <h2>Employee Detail</h2>
+    <div class="container">
+        <label>Employee Name:</label>
+        <input type="text" id="empName" placeholder="Enter name">
+
+        <label>No of Working Days:</label>
+        <input type="number" id="workingDays" placeholder="Enter days">
+
+        <button onclick="calculateSalary()">Calculate Salary</button>
+    </div>
+
+    <div id="result">
+        <h3>Salary Statement</h3>
+        <p><strong>Name: </strong> <span id="resName"></span></p>
+        <p><strong>Gross Salary: </strong> Rs <span id="resGross"></span></p>
+        <p><strong>Tax (18%): </strong> Rs <span id="resTax"></span></p>
+        <hr>
+        <p><strong>Net Salary: </strong> Rs <span id="resNet"></span></p>
+    </div>
+
+    <script>
+        function calculateSalary() {
+            let name = document.getElementById("empName").value;
+            let days = document.getElementById("workingDays").value;
+            
+            let dailyRate = 1000;
+
+            let grossSalary = days * dailyRate;
+            let tax = grossSalary * 0.18; 
+            let netSalary = grossSalary - tax;
+
+            document.getElementById("resName").innerText = name;
+            document.getElementById("resGross").innerText = grossSalary;
+            document.getElementById("resTax").innerText = tax;
+            document.getElementById("resNet").innerText = netSalary;
+
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
