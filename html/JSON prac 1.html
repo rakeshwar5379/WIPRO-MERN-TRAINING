@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product </title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+        button { margin-right: 5px; cursor: pointer; padding: 5px 10px; }
+        ul { margin-top: 20px; }
+        li { margin-bottom: 5px; padding: 8px; border-radius: 4px; list-style: none; }
+    </style>
+</head>
+<body>
+
+    <h3>Product Management Operations</h3>
+
+    <button onclick="displayProducts()">Fetch Products</button>
+    <button onclick="addProduct()">Add Product</button>
+    <button onclick="updateProduct()">Update Product</button>
+    <button onclick="deleteProduct()">Delete Product</button>
+
+    <ul id="productList"></ul>
+
+<script>
+    const jsonData = `[
+        {"item" : "Laptop" , "price" : 60000},
+        {"item" : "Mouse" , "price" : 500},
+        {"item" : "Keyboard" , "price" : 700},
+        {"item" : "Speaker" , "price" : 5000}
+    ]`;
+
+    let products = JSON.parse(jsonData);
+    const listElement = document.getElementById("productList");
+
+    function displayProducts() {
+        listElement.innerHTML = "";
+        products.forEach((prod, index) => {
+            const li = document.createElement("li");
+            li.textContent = `ID: ${index} | Item: ${prod.item} - Price: ₹${prod.price}`;
+            listElement.append(li);
+        });
+    }
+
+    function addProduct() {
+        const newItem = prompt("Enter product name:");
+        const newPrice = prompt("Enter product price:");
+
+        if (newItem && newPrice) {
+            const newProd = { item: newItem, price: parseInt(newPrice) };
+            
+            products.push(newProd);
+            alert("Product Added successfully!");
+            displayProducts();
+        }
+    }
+
+    function updateProduct() {
+        const id = prompt("Enter the Index (ID) to update:");
+        
+        if (products[id]) {
+            const updatedItem = prompt("Enter new item name:", products[id].item);
+            const updatedPrice = prompt("Enter new price:", products[id].price);
+
+            products[id] = { item: updatedItem, price: parseInt(updatedPrice) };
+            alert("Product updated!");
+            displayProducts();
+        } else {
+            alert("Product not found.");
+        }
+    }
+
+    function deleteProduct() {
+        const id = prompt("Enter the Index (ID) to delete:");
+
+        if (products[id]) {
+            products.splice(id, 1);
+            alert("Product deleted!");
+            displayProducts();
+        } else {
+            alert("Invalid Index.");
+        }
+    }
+</script>
+</body>
+</html>

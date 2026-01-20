@@ -1,0 +1,103 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <title>Fetch API Assignment</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <style> 
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #f4f4f4; 
+            margin: 0; 
+            padding: 20px; 
+        } 
+        h2 { 
+            color: #333; 
+        } 
+        .container { 
+            max-width: 900px; 
+            margin: auto; 
+        } 
+        .box { 
+            background: #fff; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            border-radius: 6px; 
+            box-shadow: 0 0 5px rgba(0,0,0,0.1); 
+        } 
+        .error { 
+            color: red; 
+            font-weight: bold; 
+        } 
+        ul { 
+            padding-left: 20px; 
+        } 
+    </style> 
+</head> 
+<body> 
+<div class="container"> 
+    <h1>Blog Posts & Todo List</h1> 
+    <div class="box"> 
+        <h2>Blog Posts</h2> 
+        <div id="posts"></div> 
+    </div> 
+    <div class="box"> 
+        <h2>Todo List</h2> 
+        <div id="todos"></div> 
+    </div> 
+</div> 
+<script> 
+    const AppModule = (function () { 
+        const postsUrl = "https://jsonplaceholder.typicode.com/posts"; 
+        const todosUrl = "https://jsonplaceholder.typicode.com/todos"; 
+        const fetchData = async (url) => { 
+            try { 
+                const response = await fetch(url); 
+                if (!response.ok) { 
+                    throw new Error("Network response was not OK"); 
+                } 
+                return await response.json(); 
+            } catch (error) { 
+                throw error; 
+            } 
+        }; 
+        const displayPosts = async () => { 
+            const postContainer = document.getElementById("posts"); 
+            try { 
+                const posts = await fetchData(postsUrl); 
+                posts.slice(0, 5).forEach(post => { 
+                    const div = document.createElement("div"); 
+                    div.innerHTML = `<h4>${post.title}</h4><p>${post.body}</p>`; 
+                    postContainer.appendChild(div); 
+                }); 
+            } catch (error) { 
+                postContainer.innerHTML = `<p class="error">Failed to load posts</p>`; 
+            } 
+        }; 
+        const displayTodos = async () => { 
+            const todoContainer = document.getElementById("todos"); 
+            try { 
+                const todos = await fetchData(todosUrl); 
+                const ul = document.createElement("ul"); 
+                todos.slice(0, 10).forEach(todo => { 
+                    const li = document.createElement("li"); 
+                    li.textContent = todo.title; 
+                    ul.appendChild(li); 
+                }); 
+                todoContainer.appendChild(ul); 
+            } catch (error) { 
+                todoContainer.innerHTML = `<p class="error">Failed to load todos</p>`; 
+            } 
+        }; 
+        const init = () => { 
+            displayPosts(); 
+            displayTodos(); 
+        }; 
+        return { 
+            init 
+        }; 
+    })(); 
+    AppModule.init(); 
+</script> 
+</body> 
+</html>

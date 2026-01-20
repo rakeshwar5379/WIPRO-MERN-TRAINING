@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Flowers Student Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .hidden { display: none; }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5c67f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        button:hover { background-color: #4a54e1; }
+
+        .activity-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .activity-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 5px solid #5c67f2;
+            border-radius: 4px;
+        }
+
+        h1 { color: #333; font-size: 1.5rem; }
+        label { display: block; text-align: left; font-size: 0.9rem; color: #666; }
+    </style>
+</head>
+<body>
+
+    <div id="loginSection" class="container">
+        <div class="card">
+            <h1>Spring Flowers School</h1>
+            <p>Please enter your credentials</p>
+            <input type="text" id="username" placeholder="Username (student1)">
+            <input type="password" id="password" placeholder="Password (pass123)">
+            <button onclick="login()">Login</button>
+            <p style="font-size: 0.8rem;">Don't have an account? <a href="#">Register</a></p>
+        </div>
+    </div>
+
+    <div id="welcomeSection" class="container hidden">
+        <div class="card">
+            <h1>Welcome, <span id="userDisplay"></span>!</h1>
+            <p>You have successfully authenticated.</p>
+            <button onclick="navigateTo('activitySection')">Monthly Chart</button>
+        </div>
+    </div>
+
+    <div id="activitySection" class="container hidden">
+        <div class="card">
+            <h2>Monthly Activities</h2>
+            
+            <label for="subjectFilter">Filter by Subject:</label>
+            <select id="subjectFilter" onchange="displayActivities()">
+                <option value="All">All Subjects</option>
+                <option value="Maths">Maths</option>
+                <option value="Science">Science</option>
+                <option value="English">English</option>
+            </select>
+
+            <div id="activityContainer" class="activity-list">
+                </div>
+
+            <button style="background: #666;" onclick="location.reload()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        const activityData = [
+            { id: 1, subject: "Maths", activity: "Create project file which contains tables between 12 to 19" },
+            { id: 2, subject: "Science", activity: "Observe and record plant growth for 7 days" },
+            { id: 3, subject: "Maths", activity: "Practice 20 geometry problems from Chapter 4" },
+            { id: 4, subject: "English", activity: "Write a summary of the short story 'The Blue Umbrella'" }
+        ];
+
+        
+        function login() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            
+            if (user === "student1" && pass === "pass123") {
+                document.getElementById('userDisplay').innerText = user;
+                navigateTo('welcomeSection');
+            } else {
+                alert("Invalid username or password. Try student1 / pass123");
+            }
+        }
+
+        
+        function navigateTo(sectionId) {
+            
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('welcomeSection').classList.add('hidden');
+            document.getElementById('activitySection').classList.add('hidden');
+
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            if (sectionId === 'activitySection') {
+                displayActivities();
+            }
+        }
+
+        function displayActivities() {
+            const filter = document.getElementById('subjectFilter').value;
+            const container = document.getElementById('activityContainer');
+            container.innerHTML = ""; 
+
+            const filteredData = filter === "All" 
+                ? activityData 
+                : activityData.filter(item => item.subject === filter);
+
+            if (filteredData.length === 0) {
+                container.innerHTML = "<p>No activities found for this subject.</p>";
+                return;
+            }
+
+            filteredData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'activity-item';
+                div.innerHTML = `<strong>${item.subject}:</strong> ${item.activity}`;
+                container.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>

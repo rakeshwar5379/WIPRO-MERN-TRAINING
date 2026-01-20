@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const price = [1000,1500]
+        const discountprice=price.map(price => price  = price -(price* 0.10));
+        document.writeln("discountprice10%:",discountprice);
+        const highprice = price.filter(price => price >1000 );
+        document.writeln("high price = ",highprice);
+        const total=price.reduce((sum,price) => sum + price);
+        document.writeln("total = ",total);
+
+    </script>
+    
+</body>
+</html>

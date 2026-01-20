@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Data Table</title>
+    <style>
+        /* Basic Page Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 80%;
+            max-width: 600px;
+            border-collapse: collapse; /* Removes gaps between borders */
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden; /* Ensures corners stay rounded */
+        }
+
+        /* Header Styling */
+        thead {
+            background-color: #007bff;
+            color: white;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Zebra Stripes: Colors every even row light grey */
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Hover effect */
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Status Badge Style */
+        .status-box {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Users Data Table</h3>
+
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Task Title</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            </tbody>
+    </table>
+
+    <script>
+        function fetchingUsers() {
+            return fetch('https://jsonplaceholder.typicode.com/todos')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                });
+        }
+
+        fetchingUsers()
+            .then(todos => {
+                const tableBody = document.getElementById("tableBody");
+
+                // We take the first 10 items for a better table view
+                todos.slice(0, 10).forEach(item => {
+                    // Create a new row
+                    const row = document.createElement("tr");
+
+                    // Set the status color logic
+                    const statusText = item.completed ? "Completed" : "Pending";
+                    const statusColor = item.completed ? "#28a745" : "#dc3545";
+
+                    // Fill the row with data
+                    row.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.title}</td>
+                        <td style="color: ${statusColor}; font-weight: bold;">${statusText}</td>
+                    `;
+
+                    // Add the row to the table body
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(err => {
+                console.error("Error fetching data:", err);
+            });
+    </script>
+</body>
+</html>
