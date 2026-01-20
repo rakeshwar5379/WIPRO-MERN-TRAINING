@@ -1,45 +1,46 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import Navbar from './assets/components/Navbar'
-import Header from './assets/components/Header'
-import Footer from './assets/components/Footer'
-import Card from './assets/components/Card'
+import Header from './components/header'
+import Footer from './components/Footer'
+import Card from './components/Card'
+import MyButton from './components/MyButton'
+import Navbar from './components/Navbar'
+import Courses from './components/Courses'
 import './App.css'
 
 function App() {
-  const products = [
-    { name: "Organic Wheat", price: "12.00", category: "Grains", icon: "🌾" },
-    { name: "Fresh Avocados", price: "8.50", category: "Fruits", icon: "🥑" },
-    { name: "Pure Honey", price: "15.00", category: "Natural", icon: "🍯" },
-    { name: "Green Broccoli", price: "4.00", category: "Vegetables", icon: "🥦" },
-  ];
+
 
   return (
-    <div className="font-sans text-slate-900">
-      <Navbar />
-      <Header />
+    <>
+      <div>
+        <Navbar></Navbar>
+        <Header />
+        <h3>Hi , This is the app content.</h3>
+        <p> React app content can be added here.</p>
+        <Courses></Courses>
+        <div className='flex flex-wrap'>
+        <Card cardTitle="React Js Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="Full Stack Java Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="MEAN Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="MERN Course" cardDescription="Module frontend course for 40 days"></Card>
+         <Card cardTitle="Dev OPs Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="Cloud Computing Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="Dot Net Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="Python Course" cardDescription="Module frontend course for 40 days"></Card>
+          <Card cardTitle="Azure  Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="Angular Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="Data Analyst Course" cardDescription="Module frontend course for 40 days"></Card>
+        <Card cardTitle="Data Science Course" cardDescription="Module frontend course for 40 days"></Card>
+        </div>
+       
+        <Footer />
+        
+      </div>
       
-      {/* Product Section */}
-      <section className="max-w-6xl mx-auto px-10 py-20">
-        <div className="flex justify-between items-end mb-10">
-          <div>
-            <h2 className="text-3xl font-bold">Featured Products</h2>
-            <p className="text-slate-500">Picked fresh this morning</p>
-          </div>
-          <button className="text-emerald-600 font-semibold hover:underline">View All</button>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((p, index) => (
-            <Card key={index} {...p} />
-          ))}
-        </div>
-      </section>
-
-      <Footer />
-    </div>
-  );
+    </>
+  )
 }
 
-export default App;
+export default App
