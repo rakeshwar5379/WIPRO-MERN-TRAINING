@@ -1,0 +1,18 @@
+{
+  "name": "calculator-mocha-chai",
+  "version": "1.0.0",
+  "description": "Simple calculator with unit testing using Mocha and Chai",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "mocha": "^10.8.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "supertest": "^7.2.2"
+  }
+}
