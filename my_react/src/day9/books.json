@@ -1,0 +1,6 @@
+{
+  "books": [
+    { "id": 1, "name": "The Psychology of Money", "author": "Morgan Housel" },
+    { "id": 2, "name": "Can We be Strangers Again", "author": "Shrijeet Shandilya" }
+  ]
+}
