@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Wheat",
+    "price": 1200,
+    "image": "https://articles-1mg.gumlet.io/articles/wp-content/uploads/2017/02/rsz_shutterstock_291146909.jpg?compress=true&quality=80&w=640&dpr=2.6"
+  },
+  {
+    "id": 2,
+    "name": "Avocados",
+    "price": 850,
+    "image": "https://domf5oio6qrcr.cloudfront.net/medialibrary/16762/gettyimages-961101662.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Honey",
+    "price": 1500,
+    "image": "https://m.media-amazon.com/images/I/61t3CUyXyeL._AC_UF894,1000_QL80_.jpg"
+  }
+]
